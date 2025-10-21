@@ -1,0 +1,24 @@
+### Default ddos testes 
+GET http://localhost:5283
+
+### Teste listar
+GET http://localhost:5283/api/consumo/listar
+
+### Teste Cadastrar
+POST http://localhost:5283/api/consumo/cadastrar
+Content-Type: application/json
+
+{
+    "cpf": "123.456.789-00",
+    "mes": 10,
+    "ano": 2025,
+    "m3Consumidos": 37.5,
+    "bandeira": "Vermelha",
+    "possuiEsgoto": true
+} 
+
+### Teste buscar por mes, ano e cpf
+GET http://localhost:5283/api/consumo/buscar/123.456.789-00/10/2025
+
+### Teste Delete usando mes, ano e cpf
+DELETE http://localhost:5283/api/consumo/remover/123.456.789-00/10/2025
