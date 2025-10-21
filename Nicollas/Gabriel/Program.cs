@@ -73,17 +73,17 @@ app.MapPost("/api/consumo/cadastrar", ([FromBody] ConsumoDeAgua novoConsumo, [Fr
 
         ///Bandeira hídrica (acrescímo percentual)
 
-        novoConsumo.ConsumoFaturado = novoConsumo.M3Consumidos * tarifa;
+        novoConsumo.ConsumoFaturado = novoConsumo.M3Consumidos;
 
         novoConsumo.ValorAgua = (int)(novoConsumo.ConsumoFaturado * tarifa);
 
         if (novoConsumo.Bandeira is "Vermelha")
         {
-            novoConsumo.AdicionalBandeira = novoConsumo.ConsumoFaturado * (0.20);
+            novoConsumo.AdicionalBandeira = novoConsumo.ConsumoFaturado + (novoConsumo.ConsumoFaturado *0.20);
         }
         else if (novoConsumo.Bandeira is "Amarela")
         {
-            novoConsumo.AdicionalBandeira = novoConsumo.ConsumoFaturado * (0.10);
+            novoConsumo.AdicionalBandeira = novoConsumo.ConsumoFaturado + (novoConsumo.ConsumoFaturado * 0.10);
         }
         else
         {
@@ -93,7 +93,7 @@ app.MapPost("/api/consumo/cadastrar", ([FromBody] ConsumoDeAgua novoConsumo, [Fr
         /// Taxa de esgoto
 
         double taxaEsgoto = 0;
-        if (novoConsumo.PossuiEsgoto is true)
+        if (novoConsumo.PossuiEsgoto)
         {
             novoConsumo.TaxaEsgoto = (novoConsumo.ValorAgua + novoConsumo.AdicionalBandeira) * 0.80;
         }
